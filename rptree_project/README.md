@@ -4,7 +4,10 @@
 ## How To Use It 
   - Go to the terminal
   - Go to the rptree_dir directory
-  - type "python3 tree.py " folowed by the directory you want a tree of
+  - type:
+  ```text
+  "python3 tree.py " folowed by the directory you want a tree of
+  ```
       -> on Mac you can do //Users/yourname/TheRestOfTheDirectory
       -> on Windows you can do CD:\TheRestOfTheDirectory
 
@@ -30,10 +33,14 @@
 ```   
     
 ## Other Commands
+```text
   python3 tree.py -v
   python3 tree.py --version
+```
     -> this gives you the version
-
+    
+```text
   python tree.py -h
   python tree.py --help
+```
     -> gives a list of all commands
