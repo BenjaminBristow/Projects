@@ -11,22 +11,22 @@
 ## What You Should See
   I used Mac and this was my output when I used it on itself
   
-  //Users/**myusername**/Projects/rptree_project/ \n
-  │
-  ├── rptree_dir/
-  │   ├── __pycache__/
-  │   │   ├── cli.cpython-314.pyc
-  │   │   ├── __init__.cpython-314.pyc
-  │   │   └── rptree.cpython-314.pyc
-  │   │
-  │   ├── __init__.py
-  │   ├── rptree.py
-  │   └── cli.py
-  │
-  ├── tree.py
-  ├── .DS_Store
-  └── README.md
-
+  //Users/**myusername**/Projects/rptree_project/   
+  │    
+  ├── rptree_dir/    
+  │   ├── __pycache__/    
+  │   │   ├── cli.cpython-314.pyc    
+  │   │   ├── __init__.cpython-314.pyc    
+  │   │   └── rptree.cpython-314.pyc    
+  │   │    
+  │   ├── __init__.py    
+  │   ├── rptree.py    
+  │   └── cli.py    
+  │    
+  ├── tree.py    
+  ├── .DS_Store    
+  └── README.md    
+    
 ## Other Commands
   python3 tree.py -v
   python3 tree.py --version
