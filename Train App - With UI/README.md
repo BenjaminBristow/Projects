@@ -12,6 +12,8 @@ It comes with:
     - auto complete feature for the stations
     - the result is condensed via the train routes but can be expanded upon click
     - data validation methods 
+    - it has a recent searches and a switch stations icon
+    
 
 
 ## Running the Server
@@ -19,15 +21,23 @@ It comes with:
 Open up Train App/src/Server.java and run that file 
 
 You should see an output of:
-
+```text
 Stations loaded: 99       
 Server running at http://localhost:8080
-
+```
 -> (99 is the amount of stations in my testfile so if you upload your own it could be different)
+
 
 
 ## Using your own .csv file
 
 Just upload the file into the same location
 
-Change line 18 in Main.java -> File file = new File("Metrolink_times_linecolour.csv");  -> to the new file name you've added
+Change line 18 in Main.java 
+```text
+File file = new File("Metrolink_times_linecolour.csv");
+```
+to the new file name youve added
+```text
+File file = new File("YourFileName.csv");
+```
