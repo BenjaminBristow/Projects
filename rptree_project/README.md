@@ -11,7 +11,7 @@
 ## What You Should See
   I used Mac and this was my output when I used it on itself
   
-  //Users/**myusername**/Projects/rptree_project/
+  //Users/**myusername**/Projects/rptree_project/ \n
   │
   ├── rptree_dir/
   │   ├── __pycache__/
