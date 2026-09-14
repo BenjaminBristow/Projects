@@ -1,0 +1,574 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 60px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+p {
+    margin-top: 0;
+    color: #666;
+}
+
+.route-form {
+    margin-top: 30px;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#result {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    min-height: 80px;
+}
+
+
+/* ======================================================
+   ROUTE DISPLAY
+   ====================================================== */
+
+.route-container {
+    margin-top: 10px;
+}
+
+.route-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+
+/* ======================================================
+   JOURNEY SUMMARY
+   ====================================================== */
+
+.journey-summary {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.journey-summary-item {
+    flex: 1;
+    padding: 15px;
+    background: #f2f4f7;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+/* ======================================================
+   ROUTE
+   ====================================================== */
+
+.route {
+    position: relative;
+    padding-left: 20px;
+}
+
+
+/* ======================================================
+   STATIONS
+   ====================================================== */
+
+.route-station {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 55px;
+    padding-left: 15px;
+}
+
+
+/* Vertical line behind stations */
+
+.route-station::before {
+    content: "";
+
+    position: absolute;
+
+    left: 5px;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 4px;
+
+    background: #7b2cbf;
+}
+
+
+/* Don't extend the line above the first station */
+
+.route-station:first-child::before {
+    top: 50%;
+}
+
+
+/* Station dot */
+
+.station-dot {
+    position: absolute;
+
+    left: -1px;
+
+    width: 16px;
+
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    border: 4px solid #7b2cbf;
+
+    z-index: 2;
+}
+
+
+/* Station information */
+
+.station-information {
+    margin-left: 25px;
+}
+
+
+.route-station-name {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+
+.route-station-line {
+    margin-top: 2px;
+    font-size: 13px;
+    color: #777;
+    text-transform: capitalize;
+}
+
+
+/* ======================================================
+   COLLAPSIBLE SECTION
+   ====================================================== */
+
+.route-section {
+    position: relative;
+}
+
+
+/* Clickable line */
+
+.route-section-line {
+    display: flex;
+    align-items: center;
+
+    min-height: 55px;
+
+    margin-left: 0;
+
+    padding: 12px 15px 12px 30px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+
+/* Hover effect */
+
+.route-section-line:hover {
+    background: #e9ecef;
+}
+
+
+/* Line name */
+
+.route-section-line > span:first-child {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+
+/* Number of stations */
+
+.route-station-count {
+    margin-left: auto;
+    margin-right: 15px;
+
+    font-size: 13px;
+
+    color: #777;
+}
+
+
+/* Arrow */
+
+.route-arrow {
+    font-size: 12px;
+
+    transition: transform 0.2s;
+}
+
+
+/* Rotate arrow when expanded */
+
+.route-section.expanded .route-arrow {
+    transform: rotate(180deg);
+}
+
+
+/* ======================================================
+   HIDDEN STATIONS
+   ====================================================== */
+
+.hidden-stations {
+    display: none;
+
+    margin-left: 15px;
+}
+
+
+/* Show stations when expanded */
+
+.route-section.expanded .hidden-stations {
+    display: block;
+}
+
+
+/* ======================================================
+   CHANGE
+   ====================================================== */
+
+.route-change {
+    margin: 10px 0;
+
+    padding: 12px;
+
+    background: #fff3cd;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    text-align: center;
+}
+
+
+/* ======================================================
+   METROLINK LINE COLOURS
+   ====================================================== */
+
+.route-station.line-purple::before {
+    background: #7b2cbf;
+}
+
+.route-station.line-purple .station-dot {
+    border-color: #7b2cbf;
+}
+
+.route-section-line.line-purple {
+    border-left: 5px solid #7b2cbf;
+}
+
+
+.route-station.line-green::before {
+    background: #00843d;
+}
+
+.route-station.line-green .station-dot {
+    border-color: #00843d;
+}
+
+.route-section-line.line-green {
+    border-left: 5px solid #00843d;
+}
+
+
+.route-station.line-red::before {
+    background: #d32f2f;
+}
+
+.route-station.line-red .station-dot {
+    border-color: #d32f2f;
+}
+
+.route-section-line.line-red {
+    border-left: 5px solid #d32f2f;
+}
+
+
+.route-station.line-blue::before {
+    background: #1976d2;
+}
+
+.route-station.line-blue .station-dot {
+    border-color: #1976d2;
+}
+
+.route-section-line.line-blue {
+    border-left: 5px solid #1976d2;
+}
+
+
+.route-station.line-yellow::before {
+    background: #f2c500;
+}
+
+.route-station.line-yellow .station-dot {
+    border-color: #f2c500;
+}
+
+.route-section-line.line-yellow {
+    border-left: 5px solid #f2c500;
+}
+
+
+.route-station.line-pink::before {
+    background: #e91e63;
+}
+
+.route-station.line-pink .station-dot {
+    border-color: #e91e63;
+}
+
+.route-section-line.line-pink {
+    border-left: 5px solid #e91e63;
+}
+
+.route-container {
+    margin-top: 10px;
+}
+
+
+/* Route title */
+
+.route-container h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+
+/* Individual station */
+
+.station {
+    position: relative;
+    padding: 14px 18px;
+    margin: 0 0 10px 20px;
+    background: white;
+    border-left: 5px solid #7b2cbf;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Station name */
+
+.station-name {
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+
+/* Line name */
+
+.station-line {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #777;
+    text-transform: capitalize;
+}
+
+
+/* Line connecting stations */
+
+.station::before {
+    content: "";
+    position: absolute;
+
+    left: -8px;
+    top: 100%;
+
+    width: 5px;
+    height: 10px;
+
+    background: #7b2cbf;
+}
+
+
+/* Journey information */
+
+.journey-info {
+    margin-top: 12px;
+    padding: 14px;
+
+    background: #f2f4f7;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+
+/* Line change */
+
+.line-change {
+    margin: 18px 0;
+    padding: 12px;
+
+    background: #fff3cd;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+    text-align: center;
+}
+
+/* ======================================================
+   ROUTE LINE COLOURS
+   ====================================================== */
+
+/* Purple */
+.route-station.line-purple .station-dot,
+.route-section-line.line-purple {
+    background: #7b2cbf;
+}
+
+/* Green */
+.route-station.line-green .station-dot,
+.route-section-line.line-green {
+    background: #00843d;
+}
+
+/* Yellow */
+.route-station.line-yellow .station-dot,
+.route-section-line.line-yellow {
+    background: #f2c500;
+}
+
+/* Light Blue */
+.route-station.line-lightblue .station-dot,
+.route-section-line.line-lightblue {
+    background: #00a9e0;
+}
+
+/* Dark Blue */
+.route-station.line-darkblue .station-dot,
+.route-section-line.line-darkblue {
+    background: #005eb8;
+}
+
+/* Pink */
+.route-station.line-pink .station-dot,
+.route-section-line.line-pink {
+    background: #e91e63;
+}
+
+/* Red */
+.route-station.line-red .station-dot,
+.route-section-line.line-red {
+    background: #d32f2f;
+}
+
+/* ======================================================
+   STATION SUGGESTIONS
+   ====================================================== */
+
+.route-form label {
+    position: relative;
+}
+
+input {
+    position: relative;
+}
+
+.station-suggestions {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.station-suggestion {
+    padding: 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.station-suggestion:last-child {
+    border-bottom: none;
+}
+
+.station-suggestion:hover {
+    background: #f2f4f7;
+}
+
+/* Highlight matching station text */
+
+.station-suggestion strong {
+    font-weight: bold;
+}
+
+/* Keyboard-selected station */
+
+.station-suggestion.selected {
+    background: #e9ecef;
+}

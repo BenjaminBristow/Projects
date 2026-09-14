@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Manchester Metrolink Route Planner</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ==============================================
+         PAGE
+         ============================================== -->
+
+    <main class="page">
+
+
+        <!-- ==========================================
+             HEADER
+             ========================================== -->
+
+        <header class="header">
+
+            <div class="logo-area">
+
+                <div class="tram-icon">
+                    🚊
+                </div>
+
+                <div>
+
+                    <div class="logo">
+                        METROLINK
+                    </div>
+
+                    <div class="subtitle">
+                        Route Planner
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-description">
+
+                Plan your journey across
+                Greater Manchester
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ==========================================
+             JOURNEY PLANNER
+             ========================================== -->
+
+        <section class="planner-card">
+
+
+            <div class="planner-heading">
+
+                <h1>
+                    Plan your journey
+                </h1>
+
+                <p>
+                    Choose your starting station
+                    and destination.
+                </p>
+
+            </div>
+
+
+
+            <!-- ======================================
+                 STATION INPUTS
+                 ====================================== -->
+
+            <div class="station-input-area">
+
+
+                <!-- START -->
+
+                <div class="input-group">
+
+                    <label for="start">
+                        FROM
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <div class="input-icon">
+                            ●
+                        </div>
+
+                        <input
+                            type="text"
+                            id="start"
+                            placeholder="Starting station"
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SWAP BUTTON -->
+
+                <button
+                    id="swapButton"
+                    class="swap-button"
+                    type="button"
+                    title="Swap stations"
+                >
+                    ⇅
+                </button>
+
+
+
+                <!-- DESTINATION -->
+
+                <div class="input-group">
+
+                    <label for="destination">
+                        TO
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <div class="input-icon destination-icon">
+                            ●
+                        </div>
+
+                        <input
+                            type="text"
+                            id="destination"
+                            placeholder="Destination station"
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ======================================
+                 SEARCH BUTTONS
+                 ====================================== -->
+
+            <div class="route-buttons">
+
+                <button
+                    id="fastestButton"
+                    class="route-button fastest-button"
+                    type="button"
+                >
+
+                    <span class="button-icon">
+                        ⚡
+                    </span>
+
+                    <span>
+                        Find Fastest Route
+                    </span>
+
+                </button>
+
+
+                <button
+                    id="changesButton"
+                    class="route-button changes-button"
+                    type="button"
+                >
+
+                    <span class="button-icon">
+                        ⇄
+                    </span>
+
+                    <span>
+                        Find Fewest Changes
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             RESULTS
+             ========================================== -->
+
+        <section
+            id="result"
+            class="result-area"
+        >
+
+            <div class="empty-result">
+
+                <div class="empty-icon">
+                    🚊
+                </div>
+
+                <h2>
+                    Your route will appear here
+                </h2>
+
+                <p>
+                    Enter two stations above to
+                    find your journey.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             LINE LEGEND
+             ========================================== -->
+
+        <section class="legend-card">
+
+            <div class="legend-heading">
+
+                <h2>
+                    Metrolink Lines
+                </h2>
+
+                <p>
+                    Lines available in the route planner
+                </p>
+
+            </div>
+
+
+            <div class="legend">
+
+                <div class="legend-item">
+
+                    <span class="legend-colour yellow"></span>
+
+                    <span>
+                        Yellow
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span class="legend-colour purple"></span>
+
+                    <span>
+                        Purple
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span class="legend-colour green"></span>
+
+                    <span>
+                        Green
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span class="legend-colour lightblue"></span>
+
+                    <span>
+                        Light Blue
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span class="legend-colour pink"></span>
+
+                    <span>
+                        Pink
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span class="legend-colour darkblue"></span>
+
+                    <span>
+                        Dark Blue
+                    </span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <span class="legend-colour red"></span>
+
+                    <span>
+                        Red
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             FOOTER
+             ========================================== -->
+
+        <footer>
+
+            Manchester Metrolink Route Planner
+
+        </footer>
+
+
+    </main>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
