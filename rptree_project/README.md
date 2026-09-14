@@ -14,14 +14,14 @@
   //Users/**myusername**/Projects/rptree_project/   
   │    
   ├── rptree_dir/    
-  │   ├── __pycache__/    
-  │   │   ├── cli.cpython-314.pyc    
-  │   │   ├── __init__.cpython-314.pyc    
-  │   │   └── rptree.cpython-314.pyc    
-  │   │    
-  │   ├── __init__.py    
-  │   ├── rptree.py    
-  │   └── cli.py    
+  │       ├── __pycache__/    
+  │       │       ├── cli.cpython-314.pyc    
+  │       │       ├── __init__.cpython-314.pyc    
+  │       │       └── rptree.cpython-314.pyc    
+  │       │    
+  │       ├── __init__.py    
+  │       ├── rptree.py    
+  │       └── cli.py    
   │    
   ├── tree.py    
   ├── .DS_Store    
