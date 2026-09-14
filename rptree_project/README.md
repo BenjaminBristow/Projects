@@ -1,8 +1,37 @@
-- first go to the rptree_dir directory in your terminal
-- type "python3 tree.py " folowed by the directory you want a tree of
+## What It Does
+  when given a directory on your device, it will create a tree diagram of all the sub-directories and files within that directory
 
-python3 tree.py -v
-- this gives you the version
+## How To Use It 
+  - Go to the terminal
+  - Go to the rptree_dir directory
+  - type "python3 tree.py " folowed by the directory you want a tree of
+      -> on Mac you can do //Users/yourname/TheRestOfTheDirectory
+      -> on Windows you can do CD:\TheRestOfTheDirectory
 
-python tree.py --help
-- gives a list of all commands
+## What You Should See
+  I used Mac and this was my output when I used it on itself
+  
+  //Users/**myusername**/Projects/rptree_project/
+  │
+  ├── rptree_dir/
+  │   ├── __pycache__/
+  │   │   ├── cli.cpython-314.pyc
+  │   │   ├── __init__.cpython-314.pyc
+  │   │   └── rptree.cpython-314.pyc
+  │   │
+  │   ├── __init__.py
+  │   ├── rptree.py
+  │   └── cli.py
+  │
+  ├── tree.py
+  ├── .DS_Store
+  └── README.md
+
+## Other Commands
+  python3 tree.py -v
+  python3 tree.py --version
+    -> this gives you the version
+
+  python tree.py -h
+  python tree.py --help
+    -> gives a list of all commands
