@@ -1,3 +1,7 @@
+// ======================================================
+// ELEMENTS
+// ======================================================
+
 const fastestButton =
     document.getElementById("fastestButton");
 
@@ -10,6 +14,9 @@ const startInput =
 const destinationInput =
     document.getElementById("destination");
 
+const swapButton =
+    document.getElementById("swapButton");
+
 const result =
     document.getElementById("result");
 
@@ -20,8 +27,6 @@ const result =
 
 let stations = [];
 
-
-// Get the station list from Java.
 async function loadStations() {
 
     try {
@@ -31,12 +36,9 @@ async function loadStations() {
                 "http://localhost:8080/stations"
             );
 
-
         const data =
             await response.text();
 
-
-        // Turn the response into an array.
         stations =
             data
                 .split("\n")
@@ -48,23 +50,22 @@ async function loadStations() {
                 })
                 .sort();
 
-
         console.log(
             "Stations loaded:",
             stations
         );
 
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
             "Could not load stations:",
             error
         );
+
     }
 }
 
-
-// Load the stations when the page starts.
 loadStations();
 
 
@@ -74,7 +75,6 @@ loadStations();
 
 function showSuggestions(input) {
 
-    // Remove any old suggestion box.
     const oldSuggestions =
         document.querySelector(
             ".station-suggestions"
@@ -84,19 +84,13 @@ function showSuggestions(input) {
         oldSuggestions.remove();
     }
 
-
-    // Get what the user has typed.
     const search =
         input.value.toLowerCase().trim();
 
-
-    // Don't show anything if the box is empty.
     if (search === "") {
         return;
     }
 
-
-    // Find matching stations.
     const matches =
         stations
             .filter(function(station) {
@@ -109,11 +103,12 @@ function showSuggestions(input) {
             .sort(function(a, b) {
 
                 const aStarts =
-                    a.toLowerCase().startsWith(search);
+                    a.toLowerCase()
+                        .startsWith(search);
 
                 const bStarts =
-                    b.toLowerCase().startsWith(search);
-
+                    b.toLowerCase()
+                        .startsWith(search);
 
                 if (aStarts && !bStarts) {
                     return -1;
@@ -124,21 +119,19 @@ function showSuggestions(input) {
                 }
 
                 return a.localeCompare(b);
+
             });
 
 
-    // Only show the first 8 results.
     const limitedMatches =
         matches.slice(0, 8);
 
 
-    // Don't create a box if there are no matches.
     if (limitedMatches.length === 0) {
         return;
     }
 
 
-    // Create the suggestion box.
     const suggestionBox =
         document.createElement("div");
 
@@ -146,174 +139,171 @@ function showSuggestions(input) {
         "station-suggestions";
 
 
-    // Keep track of keyboard selection.
     let selectedIndex = -1;
 
 
-    // Create each suggestion.
-    limitedMatches.forEach(function(station) {
+    limitedMatches.forEach(
+        function(station) {
 
-        const suggestion =
-            document.createElement("div");
+            const suggestion =
+                document.createElement("div");
 
-        suggestion.className =
-            "station-suggestion";
-
-
-        // Find where the search appears.
-        const stationLower =
-            station.toLowerCase();
-
-        const matchStart =
-            stationLower.indexOf(search);
-
-        const matchEnd =
-            matchStart + search.length;
+            suggestion.className =
+                "station-suggestion";
 
 
-        const beforeMatch =
-            station.substring(
-                0,
-                matchStart
+            const stationLower =
+                station.toLowerCase();
+
+            const matchStart =
+                stationLower.indexOf(search);
+
+            const matchEnd =
+                matchStart + search.length;
+
+
+            const beforeMatch =
+                station.substring(
+                    0,
+                    matchStart
+                );
+
+            const matchedText =
+                station.substring(
+                    matchStart,
+                    matchEnd
+                );
+
+            const afterMatch =
+                station.substring(
+                    matchEnd
+                );
+
+
+            suggestion.innerHTML =
+                `${beforeMatch}<strong>${matchedText}</strong>${afterMatch}`;
+
+
+            suggestion.addEventListener(
+                "click",
+                function() {
+
+                    input.value =
+                        station;
+
+                    suggestionBox.remove();
+
+                }
             );
 
-        const matchedText =
-            station.substring(
-                matchStart,
-                matchEnd
+
+            suggestionBox.appendChild(
+                suggestion
             );
 
-        const afterMatch =
-            station.substring(
-                matchEnd
-            );
+        }
+    );
 
 
-        // Highlight the matching text.
-        suggestion.innerHTML =
-            `${beforeMatch}<strong>${matchedText}</strong>${afterMatch}`;
-
-
-        // Select station when clicked.
-        suggestion.addEventListener(
-            "click",
-            function() {
-
-                input.value =
-                    station;
-
-                suggestionBox.remove();
-            }
-        );
-
-
-        suggestionBox.appendChild(
-            suggestion
-        );
-    });
-
-
-    // Add suggestions underneath input.
     input.parentElement.appendChild(
         suggestionBox
     );
 
 
-    // ==================================================
-    // KEYBOARD NAVIGATION
-    // ==================================================
+    input.onkeydown =
+        function(event) {
 
-    input.onkeydown = function(event) {
-
-        const suggestions =
-            suggestionBox.querySelectorAll(
-                ".station-suggestion"
-            );
+            const suggestions =
+                suggestionBox.querySelectorAll(
+                    ".station-suggestion"
+                );
 
 
-        if (suggestions.length === 0) {
-            return;
-        }
-
-
-        // DOWN
-        if (event.key === "ArrowDown") {
-
-            event.preventDefault();
-
-            selectedIndex++;
-
-
-            if (
-                selectedIndex >=
-                suggestions.length
-            ) {
-
-                selectedIndex = 0;
+            if (suggestions.length === 0) {
+                return;
             }
 
 
-            updateSelectedSuggestion(
-                suggestions,
-                selectedIndex
-            );
-        }
-
-
-        // UP
-        else if (event.key === "ArrowUp") {
-
-            event.preventDefault();
-
-            selectedIndex--;
-
-
-            if (selectedIndex < 0) {
-
-                selectedIndex =
-                    suggestions.length - 1;
-            }
-
-
-            updateSelectedSuggestion(
-                suggestions,
-                selectedIndex
-            );
-        }
-
-
-        // ENTER
-        else if (event.key === "Enter") {
-
-            if (selectedIndex >= 0) {
+            if (event.key === "ArrowDown") {
 
                 event.preventDefault();
 
+                selectedIndex++;
 
-                input.value =
-                    limitedMatches[selectedIndex];
 
+                if (
+                    selectedIndex >=
+                    suggestions.length
+                ) {
+                    selectedIndex = 0;
+                }
+
+
+                updateSelectedSuggestion(
+                    suggestions,
+                    selectedIndex
+                );
+
+            }
+
+
+            else if (event.key === "ArrowUp") {
+
+                event.preventDefault();
+
+                selectedIndex--;
+
+
+                if (selectedIndex < 0) {
+
+                    selectedIndex =
+                        suggestions.length - 1;
+
+                }
+
+
+                updateSelectedSuggestion(
+                    suggestions,
+                    selectedIndex
+                );
+
+            }
+
+
+            else if (event.key === "Enter") {
+
+                if (selectedIndex >= 0) {
+
+                    event.preventDefault();
+
+                    input.value =
+                        limitedMatches[
+                            selectedIndex
+                        ];
+
+                    suggestionBox.remove();
+
+                    selectedIndex = -1;
+
+                }
+
+            }
+
+
+            else if (event.key === "Escape") {
 
                 suggestionBox.remove();
 
                 selectedIndex = -1;
+
             }
-        }
 
-
-        // ESCAPE
-        else if (event.key === "Escape") {
-
-            suggestionBox.remove();
-
-            selectedIndex = -1;
-        }
-    };
+        };
 }
 
 
 // ======================================================
-// UPDATE SELECTED SUGGESTION
+// SELECTED SUGGESTION
 // ======================================================
 
 function updateSelectedSuggestion(
@@ -327,6 +317,7 @@ function updateSelectedSuggestion(
             suggestion.classList.remove(
                 "selected"
             );
+
         }
     );
 
@@ -338,19 +329,22 @@ function updateSelectedSuggestion(
         ].classList.add(
             "selected"
         );
+
     }
 }
 
 
 // ======================================================
-// SHOW SUGGESTIONS WHILE TYPING
+// INPUT LISTENERS
 // ======================================================
 
 startInput.addEventListener(
     "input",
     function() {
 
-        showSuggestions(startInput);
+        showSuggestions(
+            startInput
+        );
 
     }
 );
@@ -360,7 +354,34 @@ destinationInput.addEventListener(
     "input",
     function() {
 
-        showSuggestions(destinationInput);
+        showSuggestions(
+            destinationInput
+        );
+
+    }
+);
+
+
+// ======================================================
+// SWAP STATIONS
+// ======================================================
+
+swapButton.addEventListener(
+    "click",
+    function() {
+
+        const oldStart =
+            startInput.value;
+
+        const oldDestination =
+            destinationInput.value;
+
+
+        startInput.value =
+            oldDestination;
+
+        destinationInput.value =
+            oldStart;
 
     }
 );
@@ -372,99 +393,106 @@ destinationInput.addEventListener(
 
 function displayRoute(data) {
 
-    // Split Java's response into separate lines.
     const lines =
         data.split("\n");
 
 
     let journeyTimeText = "";
+
     let changesText = "";
+
     let routeTitle = "";
 
 
-    // Every station in the route.
     const stationsInRoute = [];
 
 
+    lines.forEach(
+        function(line) {
+
+            line =
+                line.trim();
+
+
+            if (line === "") {
+                return;
+            }
+
+
+            if (
+                line ===
+                "*** Fastest Route ***" ||
+
+                line ===
+                "*** Fewest Changes ***"
+            ) {
+
+                routeTitle =
+                    line
+                        .replaceAll("*", "")
+                        .trim();
+
+                return;
+
+            }
+
+
+            if (
+                line.startsWith(
+                    "Overall Journey Time"
+                )
+            ) {
+
+                journeyTimeText =
+                    line;
+
+                return;
+
+            }
+
+
+            if (
+                line.startsWith(
+                    "Total Changes"
+                )
+            ) {
+
+                changesText =
+                    line;
+
+                return;
+
+            }
+
+
+            if (
+                line.includes(
+                    " on the "
+                )
+            ) {
+
+                const parts =
+                    line.split(
+                        " on the "
+                    );
+
+
+                stationsInRoute.push({
+
+                    name: parts[0],
+
+                    line: parts[1]
+
+                });
+
+            }
+
+        }
+    );
+
+
     // ==================================================
-    // READ JAVA RESPONSE
-    // ==================================================
-
-    lines.forEach(function(line) {
-
-        line =
-            line.trim();
-
-
-        if (line === "") {
-            return;
-        }
-
-
-        // Route title.
-        if (
-            line === "*** Fastest Route ***" ||
-            line === "*** Fewest Changes ***"
-        ) {
-
-            routeTitle =
-                line
-                    .replaceAll("*", "")
-                    .trim();
-
-            return;
-        }
-
-
-        // Journey time.
-        if (
-            line.startsWith(
-                "Overall Journey Time"
-            )
-        ) {
-
-            journeyTimeText =
-                line;
-
-            return;
-        }
-
-
-        // Total changes.
-        if (
-            line.startsWith(
-                "Total Changes"
-            )
-        ) {
-
-            changesText =
-                line;
-
-            return;
-        }
-
-
-        // Station.
-        if (
-            line.includes(
-                " on the "
-            )
-        ) {
-
-            const parts =
-                line.split(" on the ");
-
-
-            stationsInRoute.push({
-                name: parts[0],
-                line: parts[1]
-            });
-        }
-    });
-
-
-    // ==================================================
-    // CREATE ROUTE CONTAINER
+    // ROUTE CONTAINER
     // ==================================================
 
     const routeContainer =
@@ -484,13 +512,14 @@ function displayRoute(data) {
     title.textContent =
         routeTitle;
 
+
     routeContainer.appendChild(
         title
     );
 
 
     // ==================================================
-    // JOURNEY SUMMARY
+    // SUMMARY
     // ==================================================
 
     const summary =
@@ -509,11 +538,18 @@ function displayRoute(data) {
             "journey-summary-item";
 
         journeyTime.textContent =
-            journeyTimeText;
+            journeyTimeText
+                .replace(
+                    "Overall Journey Time (mins):",
+                    "Journey:"
+                )
+                .trim() + " mins";
+
 
         summary.appendChild(
             journeyTime
         );
+
     }
 
 
@@ -528,9 +564,11 @@ function displayRoute(data) {
         totalChanges.textContent =
             changesText;
 
+
         summary.appendChild(
             totalChanges
         );
+
     }
 
 
@@ -540,7 +578,7 @@ function displayRoute(data) {
 
 
     // ==================================================
-    // CHECK FOR ROUTE
+    // NO ROUTE
     // ==================================================
 
     if (stationsInRoute.length === 0) {
@@ -553,6 +591,7 @@ function displayRoute(data) {
 
         message.textContent =
             "No route found.";
+
 
         routeContainer.appendChild(
             message
@@ -570,7 +609,7 @@ function displayRoute(data) {
 
 
     // ==================================================
-    // CREATE ROUTE
+    // ROUTE
     // ==================================================
 
     const route =
@@ -580,9 +619,11 @@ function displayRoute(data) {
         "route";
 
 
-    // --------------------------------------------------
-    // FIND LINE SECTIONS
-    // --------------------------------------------------
+    // ==================================================
+    // GROUP SAME-LINE STATIONS
+    // ==================================================
+
+    const sections = [];
 
     let sectionStart = 0;
 
@@ -592,136 +633,196 @@ function displayRoute(data) {
         stationsInRoute.length
     ) {
 
-        const startStation =
+        const lineName =
             stationsInRoute[
                 sectionStart
-            ];
+            ].line;
 
 
         let sectionEnd =
             sectionStart;
 
 
-        // Continue until the line changes.
         while (
             sectionEnd + 1 <
             stationsInRoute.length &&
+
             stationsInRoute[
                 sectionEnd + 1
-            ].line === startStation.line
+            ].line === lineName
         ) {
 
             sectionEnd++;
+
         }
 
 
-        const endStation =
-            stationsInRoute[
-                sectionEnd
-            ];
+        sections.push({
+
+            start:
+                sectionStart,
+
+            end:
+                sectionEnd,
+
+            line:
+                lineName
+
+        });
 
 
-        // --------------------------------------------------
-        // START STATION
-        // --------------------------------------------------
+        sectionStart =
+            sectionEnd + 1;
 
-        const startElement =
-            createStationElement(
-                startStation
+    }
+
+
+    // ==================================================
+    // DISPLAY SECTIONS
+    // ==================================================
+
+    sections.forEach(
+        function(section, index) {
+
+            const startStation =
+                stationsInRoute[
+                    section.start
+                ];
+
+
+            const endStation =
+                stationsInRoute[
+                    section.end
+                ];
+
+
+            // ------------------------------------------
+            // START STATION
+            // ------------------------------------------
+
+            const startElement =
+                createStationElement(
+                    startStation
+                );
+
+
+            route.appendChild(
+                startElement
             );
 
 
-        route.appendChild(
-            startElement
-        );
-
-
-        // --------------------------------------------------
-        // COLLAPSIBLE SECTION
-        // --------------------------------------------------
-
-        if (
-            sectionEnd >
-            sectionStart
-        ) {
+            // ------------------------------------------
+            // MIDDLE STATIONS
+            // ------------------------------------------
 
             const middleStations =
                 stationsInRoute.slice(
-                    sectionStart + 1,
-                    sectionEnd
+                    section.start + 1,
+                    section.end
                 );
 
 
-            const section =
-                createRouteSection(
-                    startStation.line,
-                    middleStations
+            if (middleStations.length > 0) {
+
+                const sectionElement =
+                    createRouteSection(
+                        section.line,
+                        middleStations
+                    );
+
+
+                route.appendChild(
+                    sectionElement
+                );
+
+            }
+
+
+            // ------------------------------------------
+            // END / CHANGE STATION
+            // ------------------------------------------
+
+            if (
+                section.end !==
+                stationsInRoute.length - 1
+            ) {
+
+                const changeStation =
+                    createStationElement(
+                        endStation
+                    );
+
+
+                changeStation.classList.add(
+                    "change-station"
                 );
 
 
-            route.appendChild(
-                section
-            );
+                route.appendChild(
+                    changeStation
+                );
+
+
+                // --------------------------------------
+                // CHANGE MESSAGE
+                // --------------------------------------
+
+                const nextStation =
+                    stationsInRoute[
+                        section.end + 1
+                    ];
+
+
+                const changeMessage =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                changeMessage.className =
+                    "line-change";
+
+
+                changeMessage.textContent =
+                    "Change from " +
+                    section.line +
+                    " line to " +
+                    nextStation.line +
+                    " line";
+
+
+                route.appendChild(
+                    changeMessage
+                );
+
+            }
+
+            else {
+
+                // --------------------------------------
+                // FINAL DESTINATION
+                // --------------------------------------
+
+                const destinationElement =
+                    createStationElement(
+                        endStation
+                    );
+
+
+                route.appendChild(
+                    destinationElement
+                );
+
+            }
+
         }
-
-
-        // --------------------------------------------------
-        // DESTINATION
-        // --------------------------------------------------
-
-        if (
-            sectionEnd ===
-            stationsInRoute.length - 1
-        ) {
-
-            const destinationElement =
-                createStationElement(
-                    endStation
-                );
-
-
-            route.appendChild(
-                destinationElement
-            );
-
-            break;
-        }
-
-
-        // --------------------------------------------------
-        // CHANGE STATION
-        // --------------------------------------------------
-
-        const changeStation =
-            createStationElement(
-                endStation
-            );
-
-
-        changeStation.classList.add(
-            "change-station"
-        );
-
-
-        route.appendChild(
-            changeStation
-        );
-
-
-        // Move to the next line section.
-        sectionStart =
-            sectionEnd + 1;
-    }
+    );
 
 
     routeContainer.appendChild(
         route
     );
 
-
-    // ==================================================
-    // DISPLAY
-    // ==================================================
 
     result.innerHTML = "";
 
@@ -732,7 +833,7 @@ function displayRoute(data) {
 
 
 // ======================================================
-// CREATE STATION ELEMENT
+// CREATE STATION
 // ======================================================
 
 function createStationElement(
@@ -741,6 +842,7 @@ function createStationElement(
 
     const station =
         document.createElement("div");
+
 
     station.className =
         "route-station";
@@ -755,12 +857,14 @@ function createStationElement(
     const dot =
         document.createElement("div");
 
+
     dot.className =
         "station-dot";
 
 
     const information =
         document.createElement("div");
+
 
     information.className =
         "station-information";
@@ -769,8 +873,10 @@ function createStationElement(
     const name =
         document.createElement("div");
 
+
     name.className =
         "route-station-name";
+
 
     name.textContent =
         stationData.name;
@@ -779,8 +885,10 @@ function createStationElement(
     const line =
         document.createElement("div");
 
+
     line.className =
         "route-station-line";
+
 
     line.textContent =
         stationData.line +
@@ -791,6 +899,7 @@ function createStationElement(
         name
     );
 
+
     information.appendChild(
         line
     );
@@ -799,6 +908,7 @@ function createStationElement(
     station.appendChild(
         dot
     );
+
 
     station.appendChild(
         information
@@ -821,16 +931,14 @@ function createRouteSection(
     const section =
         document.createElement("div");
 
+
     section.className =
         "route-section";
 
 
-    // --------------------------------------------------
-    // CLICKABLE LINE
-    // --------------------------------------------------
-
     const line =
         document.createElement("div");
+
 
     line.className =
         "route-section-line";
@@ -842,16 +950,26 @@ function createRouteSection(
     );
 
 
+    // ----------------------------------------------
+    // LINE NAME
+    // ----------------------------------------------
+
     const lineText =
         document.createElement("span");
+
 
     lineText.textContent =
         lineName +
         " line";
 
 
+    // ----------------------------------------------
+    // STATION COUNT
+    // ----------------------------------------------
+
     const stationCount =
         document.createElement("span");
+
 
     stationCount.className =
         "route-station-count";
@@ -866,11 +984,17 @@ function createRouteSection(
         );
 
 
+    // ----------------------------------------------
+    // ARROW
+    // ----------------------------------------------
+
     const arrow =
         document.createElement("span");
 
+
     arrow.className =
         "route-arrow";
+
 
     arrow.textContent =
         "▼";
@@ -880,21 +1004,24 @@ function createRouteSection(
         lineText
     );
 
+
     line.appendChild(
         stationCount
     );
+
 
     line.appendChild(
         arrow
     );
 
 
-    // --------------------------------------------------
+    // ----------------------------------------------
     // HIDDEN STATIONS
-    // --------------------------------------------------
+    // ----------------------------------------------
 
     const hiddenStations =
         document.createElement("div");
+
 
     hiddenStations.className =
         "hidden-stations";
@@ -912,13 +1039,14 @@ function createRouteSection(
             hiddenStations.appendChild(
                 station
             );
+
         }
     );
 
 
-    // --------------------------------------------------
-    // CLICK TO EXPAND
-    // --------------------------------------------------
+    // ----------------------------------------------
+    // CLICK
+    // ----------------------------------------------
 
     line.addEventListener(
         "click",
@@ -927,6 +1055,7 @@ function createRouteSection(
             section.classList.toggle(
                 "expanded"
             );
+
         }
     );
 
@@ -934,6 +1063,7 @@ function createRouteSection(
     section.appendChild(
         line
     );
+
 
     section.appendChild(
         hiddenStations
@@ -945,7 +1075,35 @@ function createRouteSection(
 
 
 // ======================================================
-// FASTEST ROUTE BUTTON
+// LOADING
+// ======================================================
+
+function showLoading(message) {
+
+    result.innerHTML = `
+
+        <div class="empty-result">
+
+            <div class="empty-icon">
+                🚊
+            </div>
+
+            <h2>
+                ${message}
+            </h2>
+
+            <p>
+                Finding the best route...
+            </p>
+
+        </div>
+
+    `;
+}
+
+
+// ======================================================
+// FASTEST ROUTE
 // ======================================================
 
 fastestButton.addEventListener(
@@ -953,14 +1111,45 @@ fastestButton.addEventListener(
     async function() {
 
         const startStation =
-            startInput.value;
+            startInput.value.trim();
 
         const destinationStation =
-            destinationInput.value;
+            destinationInput.value.trim();
 
 
-        result.textContent =
-            "Searching for fastest route...";
+        if (
+            startStation === "" ||
+            destinationStation === ""
+        ) {
+
+            result.innerHTML = `
+
+                <div class="empty-result">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Please choose two stations
+                    </h2>
+
+                    <p>
+                        Enter a starting station
+                        and destination.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        showLoading(
+            "Finding fastest route..."
+        );
 
 
         try {
@@ -977,19 +1166,43 @@ fastestButton.addEventListener(
 
             displayRoute(data);
 
-        } catch (error) {
+        }
 
-            result.textContent =
-                "Could not connect to Java server.";
+
+        catch (error) {
 
             console.error(error);
+
+
+            result.innerHTML = `
+
+                <div class="empty-result">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Could not connect to server
+                    </h2>
+
+                    <p>
+                        Make sure the Java server
+                        is running.
+                    </p>
+
+                </div>
+
+            `;
+
         }
+
     }
 );
 
 
 // ======================================================
-// FEWEST CHANGES BUTTON
+// FEWEST CHANGES
 // ======================================================
 
 changesButton.addEventListener(
@@ -997,14 +1210,45 @@ changesButton.addEventListener(
     async function() {
 
         const startStation =
-            startInput.value;
+            startInput.value.trim();
 
         const destinationStation =
-            destinationInput.value;
+            destinationInput.value.trim();
 
 
-        result.textContent =
-            "Searching for route with fewest changes...";
+        if (
+            startStation === "" ||
+            destinationStation === ""
+        ) {
+
+            result.innerHTML = `
+
+                <div class="empty-result">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Please choose two stations
+                    </h2>
+
+                    <p>
+                        Enter a starting station
+                        and destination.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        showLoading(
+            "Finding route with fewest changes..."
+        );
 
 
         try {
@@ -1021,12 +1265,36 @@ changesButton.addEventListener(
 
             displayRoute(data);
 
-        } catch (error) {
+        }
 
-            result.textContent =
-                "Could not connect to Java server.";
+
+        catch (error) {
 
             console.error(error);
+
+
+            result.innerHTML = `
+
+                <div class="empty-result">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+                    <h2>
+                        Could not connect to server
+                    </h2>
+
+                    <p>
+                        Make sure the Java server
+                        is running.
+                    </p>
+
+                </div>
+
+            `;
+
         }
+
     }
 );

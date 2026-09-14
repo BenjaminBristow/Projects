@@ -54,7 +54,5 @@ public class Main {
         } catch (FileNotFoundException e) { 
             System.out.println("An error occurred.");
         }
-        
-        new GUI(allStations);
     }
 }

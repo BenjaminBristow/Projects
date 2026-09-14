@@ -1,574 +1,1070 @@
+/* =====================================================
+   GENERAL
+   ===================================================== */
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2f4f7;
-    color: #222;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef1f5 0%,
+            #f7f8fa 50%,
+            #e9edf2 100%
+        );
+
+    color: #17202a;
+
+    min-height: 100vh;
 }
 
-.container {
-    width: 90%;
-    max-width: 700px;
-    margin: 60px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
+.page {
+    width: 92%;
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    padding:
+        45px 0 50px;
 }
 
-h1 {
-    margin-bottom: 5px;
-}
 
-p {
-    margin-top: 0;
-    color: #666;
-}
+/* =====================================================
+   HEADER
+   ===================================================== */
 
-.route-form {
-    margin-top: 30px;
-}
-
-label {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.buttons {
+.header {
     display: flex;
-    gap: 10px;
-    margin-top: 25px;
-}
 
-button {
-    flex: 1;
-    padding: 13px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-#result {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f7f7f7;
-    border-radius: 10px;
-    min-height: 80px;
-}
-
-
-/* ======================================================
-   ROUTE DISPLAY
-   ====================================================== */
-
-.route-container {
-    margin-top: 10px;
-}
-
-.route-container h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-
-/* ======================================================
-   JOURNEY SUMMARY
-   ====================================================== */
-
-.journey-summary {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.journey-summary-item {
-    flex: 1;
-    padding: 15px;
-    background: #f2f4f7;
-    border-radius: 8px;
-    font-weight: bold;
-    text-align: center;
-}
-
-
-/* ======================================================
-   ROUTE
-   ====================================================== */
-
-.route {
-    position: relative;
-    padding-left: 20px;
-}
-
-
-/* ======================================================
-   STATIONS
-   ====================================================== */
-
-.route-station {
-    position: relative;
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    min-height: 55px;
-    padding-left: 15px;
+
+    margin-bottom: 30px;
+}
+
+.logo-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.tram-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background: #17202a;
+
+    border-radius: 14px;
+
+    font-size: 27px;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+.subtitle {
+    margin-top: 2px;
+
+    font-size: 15px;
+
+    color: #68727d;
+
+    font-weight: 500;
+}
+
+.header-description {
+    color: #69737e;
+
+    font-size: 14px;
+
+    text-align: right;
+
+    max-width: 190px;
+
+    line-height: 1.5;
 }
 
 
-/* Vertical line behind stations */
+/* =====================================================
+   PLANNER CARD
+   ===================================================== */
 
-.route-station::before {
-    content: "";
-
-    position: absolute;
-
-    left: 5px;
-
-    top: 0;
-
-    bottom: 0;
-
-    width: 4px;
-
-    background: #7b2cbf;
-}
-
-
-/* Don't extend the line above the first station */
-
-.route-station:first-child::before {
-    top: 50%;
-}
-
-
-/* Station dot */
-
-.station-dot {
-    position: absolute;
-
-    left: -1px;
-
-    width: 16px;
-
-    height: 16px;
-
-    border-radius: 50%;
-
+.planner-card {
     background: white;
 
-    border: 4px solid #7b2cbf;
+    border-radius: 22px;
+
+    padding: 34px;
+
+    box-shadow:
+        0 15px 45px rgba(30, 40, 50, 0.10);
+
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================================
+   PLANNER HEADING
+   ===================================================== */
+
+.planner-heading {
+    margin-bottom: 28px;
+}
+
+.planner-heading h1 {
+    margin: 0 0 7px;
+
+    font-size: 28px;
+
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+}
+
+.planner-heading p {
+    margin: 0;
+
+    color: #737d88;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   STATION INPUT AREA
+   ===================================================== */
+
+.station-input-area {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        48px
+        1fr;
+
+    align-items: end;
+
+    gap: 14px;
+}
+
+
+/* =====================================================
+   INPUT GROUP
+   ===================================================== */
+
+.input-group {
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    color: #727d88;
+}
+
+
+/* =====================================================
+   INPUT
+   ===================================================== */
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+
+    left: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #7b2cbf;
+
+    font-size: 14px;
 
     z-index: 2;
 }
 
-
-/* Station information */
-
-.station-information {
-    margin-left: 25px;
+.destination-icon {
+    color: #17202a;
 }
 
+input {
+    width: 100%;
 
-.route-station-name {
+    height: 52px;
+
+    padding:
+        0 16px 0 38px;
+
+    border:
+        2px solid #e2e6ea;
+
+    border-radius: 12px;
+
+    background: #f9fafb;
+
     font-size: 16px;
-    font-weight: bold;
-    text-transform: capitalize;
+
+    color: #17202a;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+input::placeholder {
+    color: #a1a9b1;
+}
+
+input:focus {
+    border-color: #7b2cbf;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(123, 44, 191, 0.08);
 }
 
 
-.route-station-line {
-    margin-top: 2px;
-    font-size: 13px;
-    color: #777;
-    text-transform: capitalize;
-}
+/* =====================================================
+   SWAP BUTTON
+   ===================================================== */
 
+.swap-button {
+    width: 42px;
+    height: 42px;
 
-/* ======================================================
-   COLLAPSIBLE SECTION
-   ====================================================== */
+    border: none;
 
-.route-section {
-    position: relative;
-}
+    border-radius: 50%;
 
+    background: #f0f2f5;
 
-/* Clickable line */
+    color: #4f5963;
 
-.route-section-line {
-    display: flex;
-    align-items: center;
-
-    min-height: 55px;
-
-    margin-left: 0;
-
-    padding: 12px 15px 12px 30px;
-
-    background: #f7f7f7;
-
-    border-radius: 8px;
+    font-size: 21px;
 
     cursor: pointer;
 
-    transition: background 0.2s;
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        color 0.2s;
 }
 
+.swap-button:hover {
+    background: #e5e8ec;
 
-/* Hover effect */
+    color: #7b2cbf;
 
-.route-section-line:hover {
-    background: #e9ecef;
-}
-
-
-/* Line name */
-
-.route-section-line > span:first-child {
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-
-/* Number of stations */
-
-.route-station-count {
-    margin-left: auto;
-    margin-right: 15px;
-
-    font-size: 13px;
-
-    color: #777;
-}
-
-
-/* Arrow */
-
-.route-arrow {
-    font-size: 12px;
-
-    transition: transform 0.2s;
-}
-
-
-/* Rotate arrow when expanded */
-
-.route-section.expanded .route-arrow {
     transform: rotate(180deg);
 }
 
 
-/* ======================================================
-   HIDDEN STATIONS
-   ====================================================== */
-
-.hidden-stations {
-    display: none;
-
-    margin-left: 15px;
-}
-
-
-/* Show stations when expanded */
-
-.route-section.expanded .hidden-stations {
-    display: block;
-}
-
-
-/* ======================================================
-   CHANGE
-   ====================================================== */
-
-.route-change {
-    margin: 10px 0;
-
-    padding: 12px;
-
-    background: #fff3cd;
-
-    border-radius: 8px;
-
-    font-weight: bold;
-
-    text-align: center;
-}
-
-
-/* ======================================================
-   METROLINK LINE COLOURS
-   ====================================================== */
-
-.route-station.line-purple::before {
-    background: #7b2cbf;
-}
-
-.route-station.line-purple .station-dot {
-    border-color: #7b2cbf;
-}
-
-.route-section-line.line-purple {
-    border-left: 5px solid #7b2cbf;
-}
-
-
-.route-station.line-green::before {
-    background: #00843d;
-}
-
-.route-station.line-green .station-dot {
-    border-color: #00843d;
-}
-
-.route-section-line.line-green {
-    border-left: 5px solid #00843d;
-}
-
-
-.route-station.line-red::before {
-    background: #d32f2f;
-}
-
-.route-station.line-red .station-dot {
-    border-color: #d32f2f;
-}
-
-.route-section-line.line-red {
-    border-left: 5px solid #d32f2f;
-}
-
-
-.route-station.line-blue::before {
-    background: #1976d2;
-}
-
-.route-station.line-blue .station-dot {
-    border-color: #1976d2;
-}
-
-.route-section-line.line-blue {
-    border-left: 5px solid #1976d2;
-}
-
-
-.route-station.line-yellow::before {
-    background: #f2c500;
-}
-
-.route-station.line-yellow .station-dot {
-    border-color: #f2c500;
-}
-
-.route-section-line.line-yellow {
-    border-left: 5px solid #f2c500;
-}
-
-
-.route-station.line-pink::before {
-    background: #e91e63;
-}
-
-.route-station.line-pink .station-dot {
-    border-color: #e91e63;
-}
-
-.route-section-line.line-pink {
-    border-left: 5px solid #e91e63;
-}
-
-.route-container {
-    margin-top: 10px;
-}
-
-
-/* Route title */
-
-.route-container h2 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 24px;
-}
-
-
-/* Individual station */
-
-.station {
-    position: relative;
-    padding: 14px 18px;
-    margin: 0 0 10px 20px;
-    background: white;
-    border-left: 5px solid #7b2cbf;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-
-/* Station name */
-
-.station-name {
-    font-size: 17px;
-    font-weight: bold;
-    text-transform: capitalize;
-}
-
-
-/* Line name */
-
-.station-line {
-    margin-top: 4px;
-    font-size: 13px;
-    color: #777;
-    text-transform: capitalize;
-}
-
-
-/* Line connecting stations */
-
-.station::before {
-    content: "";
-    position: absolute;
-
-    left: -8px;
-    top: 100%;
-
-    width: 5px;
-    height: 10px;
-
-    background: #7b2cbf;
-}
-
-
-/* Journey information */
-
-.journey-info {
-    margin-top: 12px;
-    padding: 14px;
-
-    background: #f2f4f7;
-
-    border-radius: 8px;
-
-    font-weight: bold;
-}
-
-
-/* Line change */
-
-.line-change {
-    margin: 18px 0;
-    padding: 12px;
-
-    background: #fff3cd;
-
-    border-radius: 8px;
-
-    font-weight: bold;
-    text-align: center;
-}
-
-/* ======================================================
-   ROUTE LINE COLOURS
-   ====================================================== */
-
-/* Purple */
-.route-station.line-purple .station-dot,
-.route-section-line.line-purple {
-    background: #7b2cbf;
-}
-
-/* Green */
-.route-station.line-green .station-dot,
-.route-section-line.line-green {
-    background: #00843d;
-}
-
-/* Yellow */
-.route-station.line-yellow .station-dot,
-.route-section-line.line-yellow {
-    background: #f2c500;
-}
-
-/* Light Blue */
-.route-station.line-lightblue .station-dot,
-.route-section-line.line-lightblue {
-    background: #00a9e0;
-}
-
-/* Dark Blue */
-.route-station.line-darkblue .station-dot,
-.route-section-line.line-darkblue {
-    background: #005eb8;
-}
-
-/* Pink */
-.route-station.line-pink .station-dot,
-.route-section-line.line-pink {
-    background: #e91e63;
-}
-
-/* Red */
-.route-station.line-red .station-dot,
-.route-section-line.line-red {
-    background: #d32f2f;
-}
-
-/* ======================================================
-   STATION SUGGESTIONS
-   ====================================================== */
-
-.route-form label {
-    position: relative;
-}
-
-input {
-    position: relative;
-}
+/* =====================================================
+   AUTOCOMPLETE
+   ===================================================== */
 
 .station-suggestions {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: calc(100% + 7px);
+
     background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-top: 5px;
+
+    border:
+        1px solid #e1e5e9;
+
+    border-radius: 12px;
+
     overflow: hidden;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12);
+
+    z-index: 100;
 }
 
 .station-suggestion {
-    padding: 12px;
+    padding: 13px 15px;
+
     cursor: pointer;
-    border-bottom: 1px solid #eee;
+
+    border-bottom:
+        1px solid #f0f1f3;
+
+    font-size: 14px;
+
+    color: #303841;
+
+    transition:
+        background 0.15s;
 }
 
 .station-suggestion:last-child {
     border-bottom: none;
 }
 
-.station-suggestion:hover {
-    background: #f2f4f7;
+.station-suggestion:hover,
+.station-suggestion.selected {
+    background: #f3f0f7;
 }
-
-/* Highlight matching station text */
 
 .station-suggestion strong {
-    font-weight: bold;
+    color: #7b2cbf;
+
+    font-weight: 750;
 }
 
-/* Keyboard-selected station */
 
-.station-suggestion.selected {
-    background: #e9ecef;
+/* =====================================================
+   ROUTE BUTTONS
+   ===================================================== */
+
+.route-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+.route-button {
+    height: 54px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        filter 0.2s;
+}
+
+.route-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.05);
+}
+
+.route-button:active {
+    transform: translateY(0);
+}
+
+.fastest-button {
+    background:
+        linear-gradient(
+            135deg,
+            #7b2cbf,
+            #5e1f96
+        );
+
+    box-shadow:
+        0 8px 18px rgba(123, 44, 191, 0.22);
+}
+
+.changes-button {
+    background:
+        linear-gradient(
+            135deg,
+            #17202a,
+            #303b46
+        );
+
+    box-shadow:
+        0 8px 18px rgba(23, 32, 42, 0.18);
+}
+
+.button-icon {
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   RESULT AREA
+   ===================================================== */
+
+.result-area {
+    margin-top: 28px;
+}
+
+
+/* =====================================================
+   EMPTY RESULT
+   ===================================================== */
+
+.empty-result {
+    background: rgba(255, 255, 255, 0.7);
+
+    border:
+        1px solid rgba(0, 0, 0, 0.05);
+
+    border-radius: 18px;
+
+    padding: 42px 25px;
+
+    text-align: center;
+
+    color: #707a85;
+}
+
+.empty-icon {
+    font-size: 38px;
+
+    margin-bottom: 12px;
+}
+
+.empty-result h2 {
+    margin: 0 0 7px;
+
+    font-size: 18px;
+
+    color: #343c45;
+}
+
+.empty-result p {
+    margin: 0;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   ROUTE CONTAINER
+   ===================================================== */
+
+.route-container {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 12px 35px rgba(30, 40, 50, 0.08);
+}
+
+.route-container h2 {
+    margin: 0;
+
+    font-size: 22px;
+
+    font-weight: 750;
+}
+
+
+/* =====================================================
+   JOURNEY SUMMARY
+   ===================================================== */
+
+.journey-summary {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+
+    margin-bottom: 28px;
+}
+
+.journey-summary-item {
+    padding: 9px 13px;
+
+    border-radius: 9px;
+
+    background: #f1f3f5;
+
+    color: #454e57;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   ROUTE
+   ===================================================== */
+
+.route {
+    position: relative;
+
+    padding-top: 5px;
+}
+
+
+/* =====================================================
+   ROUTE STATION
+   ===================================================== */
+
+.route-station {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 62px;
+
+    z-index: 2;
+}
+
+.station-dot {
+    width: 18px;
+    height: 18px;
+
+    flex-shrink: 0;
+
+    border:
+        4px solid white;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+.station-information {
+    padding: 7px 0;
+}
+
+.route-station-name {
+    font-size: 16px;
+
+    font-weight: 750;
+
+    color: #202830;
+}
+
+.route-station-line {
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    color: #87909a;
+
+    text-transform: capitalize;
+}
+
+
+/* =====================================================
+   VERTICAL ROUTE LINE
+   ===================================================== */
+
+.route-section {
+    position: relative;
+
+    margin-left: 8px;
+}
+
+
+/* =====================================================
+   CLICKABLE LINE SECTION
+   ===================================================== */
+
+.route-section-line {
+    position: relative;
+
+    margin-left: 1px;
+
+    min-height: 72px;
+
+    padding:
+        14px 18px 14px 27px;
+
+    border-radius: 11px;
+
+    color: white;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 13px;
+
+    font-weight: 750;
+
+    transition:
+        transform 0.15s,
+        filter 0.15s;
+}
+
+.route-section-line:hover {
+    transform: translateX(2px);
+
+    filter: brightness(1.06);
+}
+
+.route-section-line::before {
+    content: "";
+
+    position: absolute;
+
+    left: 8px;
+
+    top: -15px;
+    bottom: -15px;
+
+    width: 5px;
+
+    border-radius: 5px;
+
+    background: inherit;
+}
+
+.route-section-line > span {
+    position: relative;
+
+    z-index: 2;
+}
+
+.route-station-count {
+    opacity: 0.85;
+
+    font-weight: 600;
+}
+
+.route-arrow {
+    margin-left: auto;
+
+    transition:
+        transform 0.2s;
+}
+
+.route-section.expanded
+.route-arrow {
+    transform: rotate(180deg);
+}
+
+
+/* =====================================================
+   HIDDEN STATIONS
+   ===================================================== */
+
+.hidden-stations {
+    display: none;
+
+    padding:
+        5px 0 8px 27px;
+}
+
+.route-section.expanded
+.hidden-stations {
+    display: block;
+}
+
+
+/* =====================================================
+   HIDDEN STATION CONNECTION
+   ===================================================== */
+
+.hidden-stations
+.route-station {
+    min-height: 52px;
+}
+
+.hidden-stations
+.route-station::before {
+    content: "";
+
+    position: absolute;
+
+    left: -18px;
+
+    top: -5px;
+    bottom: -5px;
+
+    width: 4px;
+
+    background: #d9dde1;
+}
+
+
+/* =====================================================
+   CHANGE STATION
+   ===================================================== */
+
+.change-station {
+    margin-top: 5px;
+
+    margin-bottom: 5px;
+}
+
+.change-station
+.route-station-line {
+    color: #7b2cbf;
+}
+
+
+/* =====================================================
+   JOURNEY INFO
+   ===================================================== */
+
+.journey-info {
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f3f4f6;
+
+    color: #66717c;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   LINE COLOURS
+   ===================================================== */
+
+/* Purple */
+
+.route-station.line-purple
+.station-dot,
+.route-section-line.line-purple {
+    background: #7b2cbf;
+}
+
+
+/* Green */
+
+.route-station.line-green
+.station-dot,
+.route-section-line.line-green {
+    background: #00843d;
+}
+
+
+/* Yellow */
+
+.route-station.line-yellow
+.station-dot,
+.route-section-line.line-yellow {
+    background: #f2c500;
+}
+
+
+/* Light Blue */
+
+.route-station.line-lightblue
+.station-dot,
+.route-section-line.line-lightblue {
+    background: #00a9e0;
+}
+
+
+/* Dark Blue */
+
+.route-station.line-darkblue
+.station-dot,
+.route-section-line.line-darkblue {
+    background: #005eb8;
+}
+
+
+/* Pink */
+
+.route-station.line-pink
+.station-dot,
+.route-section-line.line-pink {
+    background: #e91e63;
+}
+
+
+/* Red */
+
+.route-station.line-red
+.station-dot,
+.route-section-line.line-red {
+    background: #d32f2f;
+}
+
+
+/* =====================================================
+   LINE CHANGE LABEL
+   ===================================================== */
+
+.line-change {
+    margin: 14px 0;
+
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    background: #fff7df;
+
+    color: #80651a;
+
+    font-size: 12px;
+
+    font-weight: 750;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   LEGEND
+   ===================================================== */
+
+.legend-card {
+    margin-top: 22px;
+
+    padding: 25px;
+
+    background: rgba(255, 255, 255, 0.8);
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(0, 0, 0, 0.04);
+}
+
+.legend-heading h2 {
+    margin: 0 0 4px;
+
+    font-size: 17px;
+}
+
+.legend-heading p {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #7a838c;
+}
+
+.legend {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+.legend-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px 10px;
+
+    background: #f1f3f5;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    color: #4d5660;
+}
+
+.legend-colour {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+}
+
+
+/* Legend colours */
+
+.legend-colour.yellow {
+    background: #f2c500;
+}
+
+.legend-colour.purple {
+    background: #7b2cbf;
+}
+
+.legend-colour.green {
+    background: #00843d;
+}
+
+.legend-colour.lightblue {
+    background: #00a9e0;
+}
+
+.legend-colour.pink {
+    background: #e91e63;
+}
+
+.legend-colour.darkblue {
+    background: #005eb8;
+}
+
+.legend-colour.red {
+    background: #d32f2f;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+    text-align: center;
+
+    margin-top: 28px;
+
+    color: #929aa3;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .page {
+        width: 94%;
+
+        padding-top: 25px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+
+    .header-description {
+        display: none;
+    }
+
+    .planner-card {
+        padding: 23px;
+
+        border-radius: 18px;
+    }
+
+    .planner-heading h1 {
+        font-size: 24px;
+    }
+
+    .station-input-area {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .swap-button {
+        justify-self: center;
+
+        transform: rotate(90deg);
+    }
+
+    .swap-button:hover {
+        transform: rotate(270deg);
+    }
+
+    .route-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .route-container {
+        padding: 22px;
+    }
+
+    .journey-summary {
+        flex-direction: column;
+    }
+
+    .legend {
+        gap: 7px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .tram-icon {
+        width: 46px;
+        height: 46px;
+
+        font-size: 23px;
+    }
 }
