@@ -37,10 +37,12 @@
   python3 tree.py -v
   python3 tree.py --version
 ```
+``
     -> this gives you the version
     
 ```text
   python tree.py -h
   python tree.py --help
 ```
+``
     -> gives a list of all commands
